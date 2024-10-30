@@ -1,1 +1,1 @@
-# -temporary-Pwdz-Manager-Kivy-
+# Main files only, for fix purpose
