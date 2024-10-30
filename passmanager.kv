@@ -1,0 +1,231 @@
+<LoginScreen>:
+    username_input: username_input
+    password_input_login: password_input_login
+    username_input_reg: username_input_reg
+    password_input_reg: password_input_reg
+    password_input_confirm: password_input_confirm
+
+    MDTopAppBar:
+        type: "small"
+        size_hint_x: 0.9999
+        pos_hint: {"top": 1, "center_x": 0.5}
+            
+        MDTopAppBarTitle:
+            text: "AppBar Center-aligned"
+            pos_hint: {"center_x": 0.5}
+
+        #MDTopAppBarTrailingButtonContainer:
+        #    MDActionTopAppBarButton:
+        #        icon: "plus"
+        #        font_size : "200sp"
+        #        on_release: app.restart()
+        
+        MDTopAppBarTrailingButtonContainer:
+            MDActionTopAppBarButton:
+                icon: "power"
+                font_size : "200sp"
+                on_release: exit()
+
+    MDBoxLayout:
+    #MDFloatLayout:
+        orientation: "vertical"
+        padding: 0, "100dp", 0, "40dp"
+        pos_hint: {"center_y": 0.5}
+        spacing: self.width * 0.025
+
+        MDTextField:
+            id: username_input
+            multiline: False
+            size_hint: 0.8, None
+            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+            height: "40"
+            mode: "filled"
+
+            MDTextFieldLeadingIcon:
+                icon: "account"
+            MDTextFieldHintText:
+                text: "username"
+            MDTextFieldTrailingIcon:
+                icon: "eye"
+
+        MDTextField:
+            id: password_input_login
+            multiline: False
+            password: True
+            size_hint: 0.8, None
+            pos_hint: {"center_x": 0.5}
+            height: "40"
+            mode: "filled"
+
+            MDTextFieldLeadingIcon:
+                icon: "key"
+            MDTextFieldHintText:
+                text: "password"
+            MDTextFieldTrailingIcon:
+                icon: "eye-off"
+
+        Button:
+            text: "LOGIN"
+            background_color: root.btn_color
+            background_normal: ""
+            on_release: root.user_login()
+            # on_release: root.manager.current = "testscreen" if root.user_login() else "loginscreen"
+            size_hint: 0.3, None
+            height: "40"
+            pos_hint: {"center_x": 0.5}
+            spacing: 10
+
+        #MDDivider:
+        #    color: 1, 1, 1, 0.5
+        #    divider_width: dp(0.5)
+        #    size_hint_x: 0.8
+        #    pos_hint: {"center_x": .5, "center_y": .5}
+
+        Label:
+            text: "Not registered? Create an account"
+            size_hint: (1, 0.025)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+            #padding: 0, "60dp", 0, 0
+
+        MDTextField:
+            id: username_input_reg
+            multiline: False
+            size_hint: 0.8, None
+            pos_hint: {"center_x": 0.5}
+            height: "40"
+            mode: "filled"
+
+            MDTextFieldLeadingIcon:
+                icon: "account"
+            MDTextFieldHintText:
+                text: "username"
+            MDTextFieldTrailingIcon:
+                icon: "eye"
+
+        MDTextField:
+            id: password_input_reg
+            multiline: False
+            password: True
+            #background_color: root.input_color
+            #foreground_color: root.white
+            size_hint: 0.8, None
+            pos_hint: {"center_x": 0.5}
+            #height: "40"
+            mode: "filled"
+
+            MDTextFieldLeadingIcon:
+                icon: "key"
+            MDTextFieldHintText:
+                text: "password (8 characters or more)"
+            MDTextFieldTrailingIcon:
+                icon: "eye-off"
+
+        MDTextField:
+            id: password_input_confirm
+            multiline: False
+            password: True
+            #background_color: root.input_color
+            #foreground_color: root.white
+            size_hint: 0.8, None
+            pos_hint: {"center_x": 0.5}
+            mode: "filled"
+
+            MDTextFieldLeadingIcon:
+                icon: "key"
+            MDTextFieldHintText:
+                text: "confirm password"
+            MDTextFieldTrailingIcon:
+                icon: "eye-off"
+
+        Button:
+            text: "SIGN IN"
+            background_color: root.btn_color
+            background_normal: ""
+            on_release: root.new_user()
+            # on_release: root.load_profile()
+            size_hint: 0.3, None
+            height: "40"
+            pos_hint: {"center_x": 0.5}
+            #spacing: 10
+        
+        #Label:
+
+
+<ListItems>:
+    orientation: "vertical"
+    adaptive_height: True
+    md_bg_color: "#373A22" if root.selected else "#1F1E15"
+    #radius: 16
+    padding: 16
+
+    MDListItem:
+        height: 50
+        #padding: 0, 0, 0, 10
+        #height: "30dp"
+        theme_bg_color: "Custom"
+        md_bg_color: 0, 0, 0, 0.1
+        # radius: root.radius
+        ripple_effect: False
+
+        MDListItemLeadingAvatar:
+            source: root.icon
+            # radius: self.height / 2
+
+        MDListItemHeadlineText:
+            text: root.text
+            theme_text_color: "Custom"
+            text_color: "#8A8D79"
+
+
+<ListScreen>:   
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: "#F2F2F2"
+
+        MDTopAppBar:
+            type: "small"
+            pos_hint: {"top": 1}
+
+            MDTopAppBarLeadingButtonContainer:
+                MDActionTopAppBarButton:
+                    icon: "logout"
+                    on_release: root.logout() #app.restart()
+                
+            MDTopAppBarTitle:
+                text: "AppBar Center-aligned"
+                pos_hint: {"center_x": 0.5}
+
+            MDTopAppBarTrailingButtonContainer:
+                MDActionTopAppBarButton:
+                    icon: "power"
+                    on_release: exit()
+
+        RecycleView:
+            id: entries_list
+            viewclass: "ListItems"
+
+            SelectableRecycleGridLayout:
+                orientation: "vertical"
+                #padding: 0, "50dp", 0, 0 #Padding for the whole block, not each item
+                #default_size: None, dp(1)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                #multiselect: False
+                #touch_multiselect: False
+
+        MDBottomAppBar:
+            id: bottom_appbar
+            scroll_cls: entries_list
+            allow_hidden: False
+            theme_bg_color: "Custom"
+            md_bg_color: "#232217"
+
+            MDFabBottomAppBarButton:
+                id: fab_button
+                icon: "plus"
+                theme_bg_color: "Custom"
+                md_bg_color: "#373A22"
+                theme_icon_color: "Custom"
+                icon_color: "#ffffff"
+                on_release: print("REMOVE") if root.selected_entry else root.add_entry() #print("EDIT button") if root.selected_entry else print("PLUS has been clicked")
